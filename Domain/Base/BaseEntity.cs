@@ -14,6 +14,7 @@ namespace Domain.Base
         public DateTime CreateDateTime { get; set; } = DateTime.Now;
         public DateTime? UpdateDateTime { get; set; }
         public DateTime? DeleteDateTime { get; set; }
+        public Guid? CreateBy { get; set; } = null!;
 
     }
 }
