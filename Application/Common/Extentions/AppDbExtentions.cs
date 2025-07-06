@@ -14,9 +14,9 @@ namespace Application.Common.Extentions
         {
             return (id != null || id != Guid.Empty) && model.SingleOrDefault(x => x.CreateBy.Equals(id)) != null;
         }
-        public static async Task<TModel> FindByUserNameAsync<TModel>(this DbSet<TModel> model, string username, CancellationToken cancellationToken = default)
+        /*public static async Task<TModel> FindByUserNameAsync<TModel>(this DbSet<TModel> model, string username, CancellationToken cancellationToken = default)
         {
             return await model.SingleOrDefaultAsync(o=>o.UserName == username, cancellationToken);
-        }
+        }*/
     }
 }

@@ -40,5 +40,7 @@ namespace Domain.Enums
         OtpWrong = 9,
         [Description("حجم فایل مورد نظر بیش از حد مجاز است")]
         FileSizeLimit = 10,
+        [Description("کاربر یافت نشد")]
+        UserNotFound = 11,
     }
 }

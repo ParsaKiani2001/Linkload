@@ -29,10 +29,10 @@ namespace Domain.Extentions
                     }
                 }
             }
-               return string.Empty;
+            return string.Empty;
         }
 
-        public static string GetDescriptionDynamic<T>(this T e,params object[] args) where T : IConvertible
+        public static string GetDescriptionDynamic<T>(this T e, params object[] args) where T : IConvertible
         {
             if (e is Enum)
             {
@@ -48,7 +48,7 @@ namespace Domain.Extentions
                         {
                             if (args.Length > 0)
                             {
-                                return string.Format(descriptionAttr.Description,a);
+                                return string.Format(descriptionAttr.Description,args);
                             }
                             return descriptionAttr.Description;
                         }
@@ -56,5 +56,6 @@ namespace Domain.Extentions
                 }
             }
             return e.ToString();
+        }
     }
 }
