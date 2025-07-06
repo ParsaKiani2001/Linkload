@@ -42,5 +42,7 @@ namespace Domain.Enums
         FileSizeLimit = 10,
         [Description("کاربر یافت نشد")]
         UserNotFound = 11,
+        [Description("توکن منقضی شده")]
+        AccTokenExpire = 12,
     }
 }

@@ -17,7 +17,6 @@ namespace Application.Common.Interface
         public DbSet<Links> Links { get; set; }
         public DbSet<Otp> Otps { get; set; }
         public DbSet<UserPicture> Pictures { get; set; }
-        Task<int> SaveChangeAsync(CancellationToken cancellationToken);
-
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
 }

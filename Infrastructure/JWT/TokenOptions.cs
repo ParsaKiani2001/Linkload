@@ -55,5 +55,5 @@ namespace Infrastructure.JWT
         {
             public const string TokenName = "jwt";
         }
-    }
+   
 }

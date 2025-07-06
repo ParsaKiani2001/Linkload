@@ -16,7 +16,7 @@ namespace Application.CQRS.Link.Query
     {
         public PaginatedRequest PaginatedRequest { get; set; }
     }
-    public class GetLinkPublicHandler : Result, IRequestHandler<GetLinkQuery, IResponceBase>
+    public class GetLinkPublicHandler : Result, IRequestHandler<GetLinkPublicQuery, IResponceBase>
     {
         public readonly IMainDbContext _dbContext;
         public GetLinkPublicHandler(IMainDbContext dbContext, ICurrentUser currentUser)
@@ -24,7 +24,7 @@ namespace Application.CQRS.Link.Query
             _dbContext = dbContext;
         }
 
-        public async Task<IResponceBase> Handle(GetLinkQuery request, CancellationToken cancellationToken)
+        public async Task<IResponceBase> Handle(GetLinkPublicQuery request, CancellationToken cancellationToken)
         {
             var country = _dbContext.Links.Where(x => x.IsActive && !x.IsDeleted && x.Mode == LinkMode.publiced).Select(x =>
             new LinkPublicDto()
