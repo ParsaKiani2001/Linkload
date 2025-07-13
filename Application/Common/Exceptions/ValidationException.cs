@@ -14,7 +14,7 @@ namespace Application.Common.Exceptions
     {
         public static IResponceBase Validation(IEnumerable<ValidationFailure> failures)
         {
-            ResponceBaseModel Validate = new ResponceBaseModel();
+            ResponceParameterFailure Validate = new ResponceParameterFailure();
             var failureGroups = failures.GroupBy(e => e.PropertyName, e => e.ErrorMessage);
             Validate.Status = Domain.Enums.ResponceMessage.NoValidParametes;
             Validate.Message = Domain.Enums.ResponceMessage.NoValidParametes.GetDescription();
@@ -23,14 +23,10 @@ namespace Application.Common.Exceptions
             {
                 for (int x = 0; x < propertyFailure[i].Count(); x++)
                 {
-                    if (i != 0 || x != 0)
-                        Validate.Message += " , ";
-
-                    Validate.Message += propertyFailure[i].ToArray()[x].ToString();
+                    Validate.FailureList.Add(propertyFailure[i].ToArray()[x].ToString();
                 }
             }
 
-            Validate.Message += " )";
 
             return Validate;
         }

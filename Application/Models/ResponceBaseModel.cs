@@ -22,4 +22,13 @@ namespace Application.Models
 
         public T Data { get; set; }
     }
+
+    public class ResponceParameterFailure : IResponceBase
+    {
+        public ResponceMessage Status { get; set ; }
+        public string Message { get ; set; }
+        public List<String>  FailureList {get; set;}
+    }
+
+
 }

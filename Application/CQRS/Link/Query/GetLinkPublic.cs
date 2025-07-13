@@ -26,6 +26,8 @@ namespace Application.CQRS.Link.Query
 
         public async Task<IResponceBase> Handle(GetLinkPublicQuery request, CancellationToken cancellationToken)
         {
+           
+
             var country = _dbContext.Links.Where(x => x.IsActive && !x.IsDeleted && x.Mode == LinkMode.publiced).Select(x =>
             new LinkPublicDto()
             {
@@ -34,8 +36,10 @@ namespace Application.CQRS.Link.Query
                 Name = x.Name,
                 AccessCode = x.AccessCode,
             });
+
             var pagination = await PaginatedList<LinkPublicDto>.CreateAsync(country, request.PaginatedRequest);
             return await TrueOk(pagination);
         }
+
     }
 }
