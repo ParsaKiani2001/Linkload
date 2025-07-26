@@ -30,7 +30,7 @@ namespace Infrastructure.Presistence
         public DbSet<UserPicture> Pictures { get; set; }
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            var date = DateTime.Now;
+            var date = DateTime.UtcNow;
             Guid? currentUserId = _currentUser?.UserModel == null ? null : _currentUser.UserModel.Id;
 
             foreach (var entry in ChangeTracker.Entries<BaseEntity<Guid>>())

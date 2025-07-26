@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.CQRS.User.Command
 {
-    internal class VerifyUser
+    public class VerifyUser
     {
     }
 }

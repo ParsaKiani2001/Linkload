@@ -13,5 +13,8 @@ namespace Domain.Entity.Users
         public string code {  get; set; }
         public DateTime? ExpireDate { get; set; }
         public bool IsUsed { get; set; }
+        public Guid UserId { get; set; }
+        [ForeignKey("UserId")]
+        public virtual User User { get; set; }
     }
 }

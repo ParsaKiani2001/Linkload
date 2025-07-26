@@ -44,5 +44,7 @@ namespace Domain.Enums
         UserNotFound = 11,
         [Description("توکن منقضی شده")]
         AccTokenExpire = 12,
+        [Description("کاربر با این ایمیل موجود است")]
+        ExistUserWhitEmail = 13,
     }
 }

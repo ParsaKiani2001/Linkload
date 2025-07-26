@@ -23,7 +23,7 @@ namespace Application.Common.Exceptions
             {
                 for (int x = 0; x < propertyFailure[i].Count(); x++)
                 {
-                    Validate.FailureList.Add(propertyFailure[i].ToArray()[x].ToString();
+                    Validate.FailureList.Add(propertyFailure[i].ToArray()[x].ToString());
                 }
             }
 

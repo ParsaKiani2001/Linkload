@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Domain.Base;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Domain.Base;
 
 namespace Domain.Entity.Users
 {
@@ -11,6 +12,8 @@ namespace Domain.Entity.Users
     {
        public byte[] File {  get; set; }
        public string Link { get; set; }
-       public virtual ICollection<User> Users { get; set; }
+        public Guid UserId { get; set; }
+        [ForeignKey("UserId")]
+        public virtual User User { get; set; }
     }
 }

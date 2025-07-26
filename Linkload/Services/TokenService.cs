@@ -24,7 +24,7 @@ namespace Linkload.API.Services
             _mainDbContext = mainDbContext;
         }
 
-        public async Task<Tuple<string, string, DateTime>> GenerateAccessToken(User user)
+        public async Task<Tuple<string, string, DateTime, DateTime>> GenerateAccessToken(User user)
         {
             var expiration = TimeSpan.FromMinutes(tokenOptions.TokenExpiryInMinutes);
             var jwt = new JwtSecurityToken(issuer: tokenOptions.Issuer,
@@ -41,7 +41,7 @@ namespace Linkload.API.Services
             if (token != null)
             {
                 token.Jwtid = jwt.Id;
-                token.ExpireDate = DateTime.Now.AddMinutes(45);
+                token.ExpireDate = DateTime.UtcNow.AddMinutes(45);
                 token.isUsed = true;
                 token.UserId = user.Id;
                 token.Token = accessToken;
@@ -53,8 +53,8 @@ namespace Linkload.API.Services
                 token = new Tokens()
                 {
                     Jwtid = jwt.Id,
-                    ExpireDate = DateTime.Now.AddMinutes(45),
-                    ExpireRefreshToken = DateTime.Now.AddDays(90),
+                    ExpireDate = DateTime.UtcNow.AddMinutes(45),
+                    ExpireRefreshToken = DateTime.UtcNow.AddDays(90),
                     RefreshToken = Guid.NewGuid().ToString(),
                     isUsed = true,
                     UserId = user.Id,
@@ -65,7 +65,7 @@ namespace Linkload.API.Services
 
             }
             await _mainDbContext.SaveChangesAsync();
-            return Tuple.Create(accessToken, token.RefreshToken, token.ExpireRefreshToken);
+            return Tuple.Create(accessToken, token.RefreshToken, token.ExpireRefreshToken,token.ExpireDate);
 
         }
 
@@ -92,17 +92,18 @@ namespace Linkload.API.Services
         {
             if(token == null || !token.Contains("Bearer"))return await FalseOk(Domain.Enums.ResponceMessage.UnAuthorized);
             var code = token.Split(' ').Last();
+            Console.WriteLine(code);
             if(string.IsNullOrEmpty(code)) return await FalseOk(Domain.Enums.ResponceMessage.UnAuthorized);
             try
             {
                 var key = Encoding.UTF8.GetBytes(_Options.key);
                 var handler = new JwtSecurityTokenHandler();
-                var jwtSecurityToken = handler.ReadJwtToken(token);
+                var jwtSecurityToken = handler.ReadJwtToken(code);
                 var tokenExp = jwtSecurityToken.Claims.First(claim => claim.Type.Equals("exp")).Value;
                 var ticks = long.Parse(tokenExp);
                 var tokenDate = DateTimeOffset.FromUnixTimeSeconds(ticks).UtcDateTime;
                 if (tokenDate < DateTime.UtcNow) return await FalseOk(ResponceMessage.AccTokenExpire);
-                handler.ValidateToken(token, new TokenValidationParameters
+                handler.ValidateToken(code, new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),

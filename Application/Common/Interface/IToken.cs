@@ -9,7 +9,7 @@ namespace Application.Common.Interface
 {
     public interface IToken
     {
-        Task<Tuple<string, string, DateTime>> GenerateAccessToken(User user);
+        Task<Tuple<string, string, DateTime, DateTime>> GenerateAccessToken(User user);
         Task<IResponceBase> ValidateToken (string token);
     }
 }
