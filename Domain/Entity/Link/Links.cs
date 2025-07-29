@@ -23,8 +23,8 @@ namespace Domain.Entity.Link
         public DateTime? ExpireTime { get; set; }
         public LinkMode Mode { get; set; } = LinkMode.privated;
         public bool IsSecurted { get; set; }
-        public Guid UserId { get; set; }
+        public Guid? ForUserId { get; set; }
         [ForeignKey("UsreId")]
-        public virtual User User { get; set; }
+        public virtual User? User { get; set; }
     }
 }

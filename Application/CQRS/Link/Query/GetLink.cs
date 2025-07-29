@@ -31,7 +31,7 @@ namespace Application.CQRS.Link.Query
         {
             if (_currentUser.UserModel == null)
                 return await FalseOk(ResponceMessage.UserNotFound);
-            var country = _dbContext.Links.Where(x => x.IsActive && !x.IsDeleted && x.UserId == _currentUser.UserModel.Id).Select(x =>
+            var country = _dbContext.Links.Where(x => x.IsActive && !x.IsDeleted && x.CreateBy == _currentUser.UserModel.Id).Select(x =>
             new LinkDto() { 
                 Id = x.Id,
                 CreateTime = x.CreateDateTime,
