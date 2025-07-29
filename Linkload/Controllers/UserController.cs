@@ -24,6 +24,18 @@ namespace Linkload.API.Controllers
         {
             return await Mediator.Send(request);
         }
+        [HttpPost]
+        [SwaggerResponse(0, "", typeof(ResponceBaseModel))]
+        public async Task<IResponceBase> ValidUser(VerifyUser request)
+        {
+            return await Mediator.Send(request);
+        }
 
+        [HttpPost]
+        [SwaggerResponse(0, "", typeof(ResponceBaseModel))]
+        public async Task<IResponceBase> ReValidUser(ReValidate request)
+        {
+            return await Mediator.Send(request);
+        }
     }
 }

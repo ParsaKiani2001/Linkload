@@ -1,10 +1,11 @@
-﻿using System.IdentityModel.Claims;
-using System.IdentityModel.Tokens.Jwt;
-using System.Text;
-using Application.Common.Interface;
+﻿using Application.Common.Interface;
 using Application.Models;
 using Infrastructure.JWT;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.IdentityModel.Tokens.Experimental;
+using System.IdentityModel.Claims;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
 
 namespace Linkload.API.Services
 {
@@ -17,20 +18,21 @@ namespace Linkload.API.Services
             _contextAccessor = httpContextAccessor;
             _tokenOptions = options;
         }
-        public UserModel UserModel => throw new NotImplementedException();
+        public UserModel UserModel => getUserModel();
         private UserModel getUserModel()
         {
             var jwt = _contextAccessor.HttpContext?.Request.Headers.SingleOrDefault(o => o.Key == "Authorization").Value.FirstOrDefault();
-            if (jwt == null) return null;
+            if (string.IsNullOrEmpty(jwt)) return null;
             var token = jwt.Split(' ').Last();
             var key = Encoding.UTF8.GetBytes(_tokenOptions.key);
             var handler = new JwtSecurityTokenHandler();
             try
             {
-                handler.ValidateToken(token,new Microsoft.IdentityModel.Tokens.TokenValidationParameters{
+                handler.ValidateToken(token, new TokenValidationParameters
+                {
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer=true,
+                    ValidateIssuer = false,
                     ValidateAudience = false,
                     ClockSkew = TimeSpan.Zero
                 },out SecurityToken validationToken);

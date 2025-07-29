@@ -55,15 +55,15 @@ namespace Application.CQRS.User.Command
             {
                 Random random = new Random();
                 int randomNumber = random.Next(100000, 1000000);
-           /*     await _mainDbContext.Otps.AddAsync(new Otp()
+                await _mainDbContext.Otps.AddAsync(new Otp()
                 {
                     code = randomNumber.ToString(),
-                    ExpireDate = DateTime.SpecifyKind(DateTime.UtcNow.Add(TimeSpan.FromMinutes(7)),DateTimeKind.Utc),
+                    ExpireDate = DateTime.UtcNow.Add(TimeSpan.FromMinutes(7)),
                     IsUsed = false,
                     IsActive = true,
                     IsDeleted = false,
                     UserId = user.Entity.Id,
-                });*/
+                });
             }
             else
             {
